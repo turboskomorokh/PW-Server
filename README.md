@@ -1,6 +1,10 @@
 # Pixel Worlds Server
 The first ever open-sourced Pixel Worlds Server, made in C# 6.0, provides the basic features of the game in well-structured, organized, reliable, and fast code.
 
+## What does not work (found out so far)
+ - Shop
+ - Netherworld
+
 ## Dependencies
 The server uses [MongoDB](https://www.mongodb.com/) as its database, dependency injection code design, [log4net](https://logging.apache.org/log4net/) as its logging, and [7zip](https://github.com/adoconnection/SevenZipExtractor) for [lzma](https://7-zip.org/sdk.html) compression.
 
