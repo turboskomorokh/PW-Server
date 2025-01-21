@@ -85,7 +85,7 @@ public class EventHandler
         context.Player.SendPacket(new VersionCheckResponse()
         {
             ID = NetStrings.VERSION_CHECK_KEY,
-            VersionNumber = 94
+            VersionNumber = 103
         });
 
         return Task.CompletedTask;
