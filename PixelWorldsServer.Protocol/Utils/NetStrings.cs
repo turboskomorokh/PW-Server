@@ -218,4 +218,8 @@ public static class NetStrings
     public const string CHANNEL_INDEX_KEY = "channelIndex";
     public const string MESSAGE_CHAT_KEY = "message";
     public const string CHAT_TIME_KEY = "time";
+
+    // Guessed
+    public const string PLAYED_PLAYER_AUDIO = "PPA";
+    // public const string X = "SFA";
 }
