@@ -8,7 +8,7 @@ using PixelWorldsServer.Protocol.Utils;
 namespace PixelWorldsServer.Server.Event;
 
 [Event(NetStrings.SET_BLOCK_KEY)]
-public class OnSetBlock : IEvent
+public class OnPlayerSetBlock : IEvent
 {
   public Task Invoke(EventContext context, BsonDocument document)
   {
@@ -56,7 +56,7 @@ public class OnSetBlock : IEvent
 }
 
 [Event(NetStrings.SET_BLOCK_BACKGROUND_KEY)]
-public class OnSetBlockBackground : IEvent
+public class OnPlayerSetBlockBackground : IEvent
 {
   public Task Invoke(EventContext context, BsonDocument document)
   {

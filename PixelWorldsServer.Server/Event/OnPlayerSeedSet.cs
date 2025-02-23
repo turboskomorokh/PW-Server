@@ -13,17 +13,14 @@ public class OnPlayerSeedSet : IEvent
   {
     SetSeedRequest request = BsonSerializer.Deserialize<SetSeedRequest>(document);
     Console.WriteLine("[EH] Triggered OnSetSeed");
-    var world = context.World;
-    if (world is null)
-    {
+    if (context.World is null)
       throw new Exception("Not in world");
-    }
+    
+    var world = context.World;
 
     var inventoryItemType = request.BlockType == BlockType.Fertilizer ? InventoryItemType.Block : InventoryItemType.Seed;
     if (!context.Player.HasItem(request.BlockType, inventoryItemType))
-    {
       return Task.CompletedTask;
-    }
 
     var seed = world.GetSeed(request.X, request.Y);
     var setFertilizer = false;

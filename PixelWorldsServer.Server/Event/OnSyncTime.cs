@@ -10,7 +10,8 @@ public class OnSyncTime : IEvent
 {
   public Task Invoke(EventContext context, BsonDocument document)
   {
-    Console.WriteLine("[EH] Triggered OnSyncTime");
+    // unnecessary logging
+    // Console.WriteLine("[EH] Triggered OnSyncTime");
     context.Player.SendPacket(new SyncTimeResponse()
     {
       ID = NetStrings.SYNC_TIME_KEY,

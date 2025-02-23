@@ -7,7 +7,6 @@ using PixelWorldsServer.Protocol.Utils;
 namespace PixelWorldsServer.Server.Event;
 
 [Event(NetStrings.BUY_ITEM_PACK_KEY)]
-// TODO fix stub
 public class OnPlayerBuyItemPack : IEvent
 {
   Random random = new Random();
@@ -25,15 +24,17 @@ public class OnPlayerBuyItemPack : IEvent
     }
 
     // Works
-    var values = Enumerable.Range(0, 3).Select(_ => random.Next(0, 18)).ToArray();
 
     context.Player.SendPacket(new BuyItemPackResponse()
       {
         ID = NetStrings.BUY_ITEM_PACK_KEY,
         Success = "PS",
         ItemPackId = request.ItemPackId,
-        ItemPackRolls = values,
+        ItemPackRolls = new int[] { 18, 5, 6 },
       });
+      context.Player.AddItem(BlockType.JacketBlack, InventoryItemType.WearableItem, 1);
+      context.Player.AddItem(BlockType.PantsSweat, InventoryItemType.WearableItem, 1);
+      context.Player.AddItem(BlockType.ShoesBrown, InventoryItemType.WearableItem, 1);
       
     return Task.CompletedTask;
   }

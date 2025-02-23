@@ -8,7 +8,7 @@ using PixelWorldsServer.Protocol.Utils;
 namespace PixelWorldsServer.Server.Event;
 
 [Event(NetStrings.HIT_BLOCK_KEY)]
-public class OnHitBlock : IEvent
+public class OnPlayerHitBlock : IEvent
 {
     public Task Invoke(EventContext context, BsonDocument document)
     {
@@ -121,7 +121,7 @@ public class OnHitBlock : IEvent
 }
 
 [Event(NetStrings.HIT_BLOCK_BACKGROUND_KEY)]
-public class OnHitBlockBackground : IEvent
+public class OnPlayerHitBlockBackground : IEvent
 {
     public Task Invoke(EventContext context, BsonDocument document)
     {

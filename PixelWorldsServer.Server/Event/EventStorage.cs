@@ -40,9 +40,9 @@ public class EventStorage
     }
   }
 
-  public IEvent GetEvent(string type)
+  public IEvent? GetEvent(string type)
   {
-    return Events.TryGetValue(type, out var executor) ? executor : throw new Exception($"No event handler found for ID: {type}");
+    return Events.TryGetValue(type, out var executor) ? executor : null;
   }
 
   public ICollection<string> GetEventList()

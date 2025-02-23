@@ -13,7 +13,8 @@ public class OnPingEvent : IEvent
 
   public Task Invoke(EventContext context, BsonDocument document)
   {
-    Console.WriteLine("[EH] Triggered OnPing");
+    // unnecessary logging
+    //Console.WriteLine("[EH] Triggered OnPing");
     context.Player.SendPacket(new PacketBase()
     {
       ID = NetStrings.PING_KEY,
