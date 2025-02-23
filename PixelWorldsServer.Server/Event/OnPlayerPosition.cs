@@ -12,7 +12,8 @@ public class OnPlayerPosition : IEvent {
     public Task Invoke(EventContext context, BsonDocument document)
     {
       MyPosRequest request = BsonSerializer.Deserialize<MyPosRequest>(document);
-        Console.WriteLine("[EH] Triggered OnMyPosition");
+        // THAT GUY IS GODDAMN SPAMMER
+        //Console.WriteLine("[EH] Triggered OnMyPosition");
         var world = context.World;
         if (world is null)
         {
