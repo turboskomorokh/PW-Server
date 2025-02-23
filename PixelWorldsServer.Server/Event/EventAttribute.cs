@@ -1,6 +1,6 @@
 ﻿namespace PixelWorldsServer.Server.Event;
 
-[AttributeUsage(AttributeTargets.Class, Inherited = true, AllowMultiple = true)]
+[AttributeUsage(AttributeTargets.Class, Inherited = false, AllowMultiple = true)]
 public sealed class EventAttribute : Attribute
 {
     public string Id { get; set; }
