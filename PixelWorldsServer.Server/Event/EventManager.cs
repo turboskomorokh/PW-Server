@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
+using PixelWorldsServer.DataAccess;
 using PixelWorldsServer.Server.Players;
 using PixelWorldsServer.Server.Worlds;
 using System.Collections.Concurrent;
@@ -11,6 +12,8 @@ namespace PixelWorldsServer.Server.Event;
 public class EventContext
 {
     public World? World { get; set; }
+    public Database? Database;
+    public WorldManager? WorldManager;
     public Player Player { get; set; } = null!;
 }
 
@@ -24,32 +27,17 @@ public class IncomingPacket
 public class EventManager
 {
     private readonly ILogger m_Logger;
-    private readonly EventHandler m_EventHandler;
+    private EventStorage m_EventStorage;
+    private Database m_Database;
+    private WorldManager m_WorldManager;
     private readonly ConcurrentQueue<IncomingPacket> m_PacketQueue = new();
-    private readonly Dictionary<string, MethodInfo> m_RegisteredEvents = new();
 
-    public EventManager(ILogger<EventManager> logger, EventHandler eventHandler)
+    public EventManager(ILogger<EventManager> logger, Database database, WorldManager worldManager)
     {
+        m_Database = database;
+        m_WorldManager = worldManager;
         m_Logger = logger;
-        m_EventHandler = eventHandler;
-
-        Initialize();
-    }
-
-    private void Initialize()
-    {
-        m_Logger.LogInformation("Registering events...");
-
-        foreach (var method in m_EventHandler.GetType().GetMethods())
-        {
-            var attributes = method.GetCustomAttributes<EventAttribute>();
-            foreach (var attribute in attributes)
-            {
-                m_RegisteredEvents.Add(attribute.Id, method);
-            }
-        }
-
-        m_Logger.LogInformation("Registered {} events", m_RegisteredEvents.Count);
+        m_EventStorage = new EventStorage(m_Logger);
     }
 
     public void QueuePacket(BsonDocument document, Player player, AutoResetEvent autoResetEvent)
@@ -100,39 +88,30 @@ public class EventManager
     private async Task InvokeAsync(BsonDocument document, Player player)
     {
         string id = document["ID"].AsString;
-        if (!m_RegisteredEvents.TryGetValue(id, out var method))
+
+        var eventHandler = m_EventStorage.GetEvent(id);
+        if (eventHandler == null)
         {
-            m_Logger.LogWarning("Unhandled packet {}", document.ToString());
+            m_Logger.LogWarning($"Unhandled packet {document.ToString()}");
             return;
         }
 
         var context = new EventContext()
         {
+            Database = m_Database,
+            WorldManager = m_WorldManager,
             World = player.World,
             Player = player
         };
 
-        var methodParameters = method.GetParameters();
-        object[] parameters;
-        if (methodParameters.Length > 1)
-        {
-            var parameter = methodParameters[1];
-            var serialized = BsonSerializer.Deserialize(document, parameter.ParameterType);
-            parameters = new[] { context, serialized };
-        }
-        else
-        {
-            parameters = new[] { context };
-        }
-
         try
         {
-            var task = (Task)method.Invoke(m_EventHandler, parameters)!;
+            var task = eventHandler.Invoke(context, document);
             await task.ConfigureAwait(false);
         }
         catch (Exception exception)
         {
-            m_Logger.LogError("Exception: {}", exception);
+            m_Logger.LogError($"Exception: {exception}");
         }
     }
 }

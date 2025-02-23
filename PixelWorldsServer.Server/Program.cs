@@ -11,7 +11,6 @@ using PixelWorldsServer.Server.Event;
 using PixelWorldsServer.Server.Network;
 using PixelWorldsServer.Server.Players;
 using PixelWorldsServer.Server.Worlds;
-using EventHandler = PixelWorldsServer.Server.Event.EventHandler;
 
 static bool Init(ILogger logger)
 {
@@ -45,7 +44,6 @@ using var host = Host.CreateDefaultBuilder(args)
             .AddSingleton<Database>()
             .AddSingleton<TcpServer>()
             .AddSingleton<EventManager>()
-            .AddSingleton<EventHandler>()
             .AddSingleton<PlayerManager>()
             .AddSingleton<WorldManager>()
             .AddHostedService<ServerHostedService>();
