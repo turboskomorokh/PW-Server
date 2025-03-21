@@ -1,9 +1,9 @@
-﻿using MongoDB.Bson;
+﻿using System.Net;
+using MongoDB.Bson;
 using PixelWorldsServer.DataAccess.Models;
 using PixelWorldsServer.Protocol.Constants;
 using PixelWorldsServer.Protocol.Utils;
 using PixelWorldsServer.Server.Worlds;
-using System.Net;
 
 namespace PixelWorldsServer.Server.Players;
 
@@ -87,7 +87,10 @@ public class Player : PlayerModel
         return ms.ToArray();
     }
 
-    public static int BlockTypeAndInventoryItemTypeToInt(BlockType blockType, InventoryItemType inventoryItemType)
+    public static int BlockTypeAndInventoryItemTypeToInt(
+        BlockType blockType,
+        InventoryItemType inventoryItemType
+    )
     {
         return (int)((uint)inventoryItemType << 24) | (int)blockType;
     }

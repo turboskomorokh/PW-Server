@@ -136,4 +136,3 @@ public static class RollDrops
         }
     }
 }
-

@@ -253,6 +253,6 @@ public static class CountryCodes
         { 732, "Western Sahara ESH" },
         { 887, "Yemen YEM" },
         { 894, "Zambia ZMB" },
-        { 716, "Zimbabwe ZWE" }
+        { 716, "Zimbabwe ZWE" },
     };
 }

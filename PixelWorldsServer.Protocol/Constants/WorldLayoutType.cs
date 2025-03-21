@@ -24,5 +24,5 @@ public enum WorldLayoutType
     SecretBaseLaboratory,
     HomeWorld,
     GeneratedMine,
-    JetRace
+    JetRace,
 }

@@ -26,28 +26,33 @@ static bool Init(ILogger logger)
         return false;
     }
 
-    logger.LogInformation("Blocks config successfully loaded in {} milliseconds", (DateTime.Now - start).TotalMilliseconds);
+    logger.LogInformation(
+        "Blocks config successfully loaded in {} milliseconds",
+        (DateTime.Now - start).TotalMilliseconds
+    );
     return true;
 }
 
 using var host = Host.CreateDefaultBuilder(args)
-    .ConfigureServices((hostContext, services) =>
-    {
-        services
-            .AddLogging(logger =>
-            {
-                logger.ClearProviders();
-                logger.SetMinimumLevel(LogLevel.Debug);
-                logger.AddLog4Net("log4net.config");
-            })
-            .Configure<DatabaseSettings>(hostContext.Configuration.GetSection("Database"))
-            .AddSingleton<Database>()
-            .AddSingleton<TcpServer>()
-            .AddSingleton<EventManager>()
-            .AddSingleton<PlayerManager>()
-            .AddSingleton<WorldManager>()
-            .AddHostedService<ServerHostedService>();
-    })
+    .ConfigureServices(
+        (hostContext, services) =>
+        {
+            services
+                .AddLogging(logger =>
+                {
+                    logger.ClearProviders();
+                    logger.SetMinimumLevel(LogLevel.Debug);
+                    logger.AddLog4Net("log4net.config");
+                })
+                .Configure<DatabaseSettings>(hostContext.Configuration.GetSection("Database"))
+                .AddSingleton<Database>()
+                .AddSingleton<TcpServer>()
+                .AddSingleton<PacketHandlerManager>()
+                .AddSingleton<PlayerManager>()
+                .AddSingleton<WorldManager>()
+                .AddHostedService<ServerHostedService>();
+        }
+    )
     .Build();
 
 var logger = host.Services.GetService<ILogger<ServerHostedService>>()!;

@@ -13,5 +13,5 @@ public enum BlockClass
     WeaponGun,
     WeaponPickaxePoor,
     WeaponPickaxeGood,
-    WeaponPickaxeEpic
+    WeaponPickaxeEpic,
 }

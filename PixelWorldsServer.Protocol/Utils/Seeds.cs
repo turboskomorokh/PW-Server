@@ -34,7 +34,11 @@ public static class Seeds
         return BlockType.None;
     }
 
-    public static SeedData GenerateSeedData(BlockType typeOfSeed, Vector2i pos, bool isMixed = false)
+    public static SeedData GenerateSeedData(
+        BlockType typeOfSeed,
+        Vector2i pos,
+        bool isMixed = false
+    )
     {
         int blockComplexity = ConfigData.BlockComplexity[(int)typeOfSeed];
         int growthDurationSeconds = SeedData.CalculateGrowthTimeInSeconds(blockComplexity);
@@ -60,4 +64,3 @@ public static class Seeds
         return null;
     }
 }
-

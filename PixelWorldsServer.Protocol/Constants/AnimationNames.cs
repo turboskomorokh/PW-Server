@@ -177,5 +177,5 @@ public enum AnimationNames
     HoldMeleeHeavy,
     HoldMeleeArcane,
     IdleCamouflage,
-    END_OF_THE_ENUM
+    COUNT,
 }

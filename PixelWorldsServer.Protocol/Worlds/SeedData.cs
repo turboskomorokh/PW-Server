@@ -19,7 +19,12 @@ public class SeedData
     public short HarvestGems { get; set; }
     public short HarvestExtraBlocks { get; set; }
 
-    public SeedData(BlockType blockType, Vector2i position, int growthDurationSeconds, bool isMixed = false)
+    public SeedData(
+        BlockType blockType,
+        Vector2i position,
+        int growthDurationSeconds,
+        bool isMixed = false
+    )
     {
         BlockType = blockType;
         Position = position;
@@ -39,7 +44,9 @@ public class SeedData
             return m_GrowthTimeInSecondsForZeroOrLessComplexity;
         }
 
-        double growthTime = Math.Floor(Math.Pow(blockComplexity, 3.2) + 30.0 * Math.Pow(blockComplexity, 1.4));
+        double growthTime = Math.Floor(
+            Math.Pow(blockComplexity, 3.2) + 30.0 * Math.Pow(blockComplexity, 1.4)
+        );
 
         if (growthTime < m_MinGrowthTimeInSeconds)
         {

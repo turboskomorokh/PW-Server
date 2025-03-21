@@ -21,12 +21,9 @@ public class TutorialSleepPodData : WorldItemBase
     [BsonElement("isLocked")]
     public bool IsLocked { get; set; }
 
+    public TutorialSleepPodData()
+        : base(0, BlockType.TutorialSleepPod) { }
 
-    public TutorialSleepPodData() : base(0, BlockType.TutorialSleepPod)
-    {
-    }
-
-    public TutorialSleepPodData(int itemId) : base(itemId, BlockType.TutorialSleepPod)
-    {
-    }
+    public TutorialSleepPodData(int itemId)
+        : base(itemId, BlockType.TutorialSleepPod) { }
 }

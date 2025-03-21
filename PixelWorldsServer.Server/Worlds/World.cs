@@ -98,6 +98,7 @@ public class World : WorldModel
     public void SetSeed(int index, SeedData seed)
     {
         PlantedSeeds[index] = seed;
+        SetBlock(index, BlockType.Tree);
     }
 
     public void SetSeed(int x, int y, SeedData seed)

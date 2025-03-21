@@ -5,5 +5,5 @@ public enum LayerType
     Block,
     Background,
     Water,
-    Wiring
+    Wiring,
 }

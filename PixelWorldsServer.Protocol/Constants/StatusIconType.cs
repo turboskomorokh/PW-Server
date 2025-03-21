@@ -6,5 +6,5 @@ public enum StatusIconType
     InMenus,
     Typing,
     Trading,
-    CardGame
+    CardGame,
 }

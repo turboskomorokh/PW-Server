@@ -9,11 +9,9 @@ public class BattleBarrierLabData : WorldItemBase
     [BsonElement("isOpen")]
     public bool IsOpen { get; set; }
 
-    public BattleBarrierLabData() : base(0, BlockType.BattleBarrierLab)
-    {
-    }
+    public BattleBarrierLabData()
+        : base(0, BlockType.BattleBarrierLab) { }
 
-    public BattleBarrierLabData(int itemId) : base(itemId, BlockType.BattleBarrierLab)
-    {
-    }
+    public BattleBarrierLabData(int itemId)
+        : base(itemId, BlockType.BattleBarrierLab) { }
 }

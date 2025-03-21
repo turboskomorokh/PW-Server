@@ -37,5 +37,5 @@ public enum StatisticsKey
     MinesFinished,
     JetRacesFinished,
     CardsCollected,
-    LAST_VALUE
+    COUNT,
 }

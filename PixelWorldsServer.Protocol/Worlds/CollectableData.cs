@@ -19,7 +19,15 @@ public class CollectableData
     public bool IsGem { get; set; }
     public GemType GemType { get; set; }
 
-    public CollectableData(int id, BlockType newType, short amount, InventoryItemType inventoryItemType, float posX, float posY, InventoryItemBase inventoryData)
+    public CollectableData(
+        int id,
+        BlockType newType,
+        short amount,
+        InventoryItemType inventoryItemType,
+        float posX,
+        float posY,
+        InventoryItemBase inventoryData
+    )
     {
         Id = id;
         Pos.X = posX;
@@ -32,10 +40,13 @@ public class CollectableData
         InventoryItemType = inventoryItemType;
     }
 
-    public CollectableData(BlockType newType, short amount, InventoryItemType inventoryItemType, InventoryItemBase inventoryData)
-        : this(0, newType, amount, inventoryItemType, 0f, 0f, inventoryData)
-    {
-    }
+    public CollectableData(
+        BlockType newType,
+        short amount,
+        InventoryItemType inventoryItemType,
+        InventoryItemBase inventoryData
+    )
+        : this(0, newType, amount, inventoryItemType, 0f, 0f, inventoryData) { }
 
     public CollectableData(int id, short amount, float posX, float posY, GemType gemType)
         : this(id, BlockType.None, amount, InventoryItemType.Block, posX, posY, null!)
@@ -44,7 +55,5 @@ public class CollectableData
         GemType = gemType;
     }
 
-    public CollectableData()
-    {
-    }
+    public CollectableData() { }
 }

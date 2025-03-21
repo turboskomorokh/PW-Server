@@ -46,7 +46,7 @@ public class PlayerModel
     public string FamiliarName { get; set; } = string.Empty;
 
     public Gender Gender { get; set; }
-    public AdminStatus AdminStatus { get; set; }
+    public PlayerPermission PermissionLevel { get; set; }
     public PlayerCostumeType Costume { get; set; }
     public BlockType FamiliarBlockType { get; set; }
     public TutorialState TutorialState { get; set; }
@@ -88,8 +88,8 @@ public class PlayerModel
 
     public PlayerModel()
     {
-        Statistics = Enumerable.Repeat(0, (int)StatisticsKey.LAST_VALUE).ToArray();
-        Spots = new BlockType[(int)AnimationHotSpots.END_OF_THE_ENUM] // DefaultMaleHotSpotsBlockTypes
+        Statistics = Enumerable.Repeat(0, (int)StatisticsKey.COUNT).ToArray();
+        Spots = new BlockType[(int)AnimationHotSpots.COUNT] // DefaultMaleHotSpotsBlockTypes
         {
             BlockType.None,
             BlockType.BasicFace,
@@ -129,7 +129,7 @@ public class PlayerModel
         };
         QuestCurrentID = Array.Empty<string>();
         QuestCurrentPhase = Array.Empty<int>();
-        InstructionStates = new byte[(int)InstructionEventsCompleted.InstructionEventVariables_Count];
+        InstructionStates = new byte[(int)InstructionEventsCompleted.COUNT];
         FaceExpressionListId = new AnimationNames[]
         {
             AnimationNames.FaceContent,
@@ -141,16 +141,16 @@ public class PlayerModel
             AnimationNames.Applause,
             AnimationNames.ThumbsUp,
             AnimationNames.Wink,
-            AnimationNames.Waveone
+            AnimationNames.Waveone,
         };
         BoughtExpressionsList = Array.Empty<AnimationNames>();
         DailyQuestNextAvailList = new long[] { 0, 0, 0 };
         InstructionStatesAmounts = new int[] { 0 }; // only 0? idk
-        AchievementCurrentValues = new int[(int)Achievement.Achievement_Count];
+        AchievementCurrentValues = new int[(int)Achievements.COUNT];
         AlreadyBoughtOneTimeItems = Array.Empty<string>();
-        AchievementRewardsClaimed = new byte[(int)Achievement.Achievement_Count];
+        AchievementRewardsClaimed = new byte[(int)Achievements.COUNT];
         PreviousThreeDailyQuestIds = Array.Empty<string>();
-        AchievementsCompletedStates = new byte[(int)Achievement.Achievement_Count];
+        AchievementsCompletedStates = new byte[(int)Achievements.COUNT];
     }
 
     public void LoadCopy(PlayerModel playerModel)
@@ -191,7 +191,7 @@ public class PlayerModel
         FamiliarName = playerModel.FamiliarName;
 
         Gender = playerModel.Gender;
-        AdminStatus = playerModel.AdminStatus;
+        PermissionLevel = playerModel.PermissionLevel;
         Costume = playerModel.Costume;
         FamiliarBlockType = playerModel.FamiliarBlockType;
         TutorialState = playerModel.TutorialState;

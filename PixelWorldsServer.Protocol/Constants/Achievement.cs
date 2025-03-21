@@ -1,6 +1,6 @@
 ﻿namespace PixelWorldsServer.Protocol.Constants;
 
-public enum Achievement
+public enum Achievements
 {
     Total,
     Smasher,
@@ -50,5 +50,5 @@ public enum Achievement
     PickaxeUpgrade,
     JetRaceFinish,
     GottaGetEmAll,
-    Achievement_Count
+    COUNT,
 }

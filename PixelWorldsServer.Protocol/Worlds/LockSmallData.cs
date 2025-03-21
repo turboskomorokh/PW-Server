@@ -23,7 +23,8 @@ public class LockSmallData : WorldItemBase
     public List<LockAccess> PlayersWhoHaveMinorAccessToLock { get; set; } = new();
 
     [BsonElement("playersWhoHaveMinorAccessToLock")]
-    public string[] PlayersWhoHaveMinorAccessToLockString => SerializeAccess(PlayersWhoHaveMinorAccessToLock);
+    public string[] PlayersWhoHaveMinorAccessToLockString =>
+        SerializeAccess(PlayersWhoHaveMinorAccessToLock);
 
     [BsonElement("isOpen")]
     public bool IsOpen { get; set; }
@@ -46,13 +47,11 @@ public class LockSmallData : WorldItemBase
     [BsonElement("isBattleOn")]
     public bool IsBattleOn { get; set; }
 
-    public LockSmallData() : base(0, BlockType.LockSmall)
-    {
-    }
+    public LockSmallData()
+        : base(0, BlockType.LockSmall) { }
 
-    public LockSmallData(int itemId) : base(itemId, BlockType.LockSmall)
-    {
-    }
+    public LockSmallData(int itemId)
+        : base(itemId, BlockType.LockSmall) { }
 
     private static string[] SerializeAccess(List<LockAccess> access)
     {

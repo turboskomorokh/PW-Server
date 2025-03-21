@@ -4,11 +4,9 @@ namespace PixelWorldsServer.Protocol.Worlds;
 
 public class EntrancePortalData : WorldItemBase
 {
-    public EntrancePortalData() : base(0, BlockType.EntrancePortal)
-    {
-    }
+    public EntrancePortalData()
+        : base(0, BlockType.EntrancePortal) { }
 
-    public EntrancePortalData(int itemId) : base(itemId, BlockType.EntrancePortal)
-    {
-    }
+    public EntrancePortalData(int itemId)
+        : base(itemId, BlockType.EntrancePortal) { }
 }

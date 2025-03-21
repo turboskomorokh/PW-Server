@@ -9,11 +9,9 @@ public class ScifiDoorData : WorldItemBase
     [BsonElement("isLocked")]
     public bool IsLocked { get; set; }
 
-    public ScifiDoorData() : base(0, BlockType.ScifiDoor)
-    {
-    }
+    public ScifiDoorData()
+        : base(0, BlockType.ScifiDoor) { }
 
-    public ScifiDoorData(int itemId) : base(itemId, BlockType.ScifiDoor)
-    {
-    }
+    public ScifiDoorData(int itemId)
+        : base(itemId, BlockType.ScifiDoor) { }
 }

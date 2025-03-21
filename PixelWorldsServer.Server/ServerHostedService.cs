@@ -13,13 +13,13 @@ public class ServerHostedService : IHostedService
 {
     private readonly TcpServer m_TcpServer;
     private readonly WorldManager m_WorldManager;
-    private readonly EventManager m_EventManager;
+    private readonly PacketHandlerManager m_EventManager;
     private readonly PlayerManager m_PlayerManager;
 
     private readonly ILogger m_Logger;
     private readonly IOptions<DatabaseSettings> m_DatabaseSettings;
 
-    public ServerHostedService(TcpServer tcpServer, WorldManager worldManager, EventManager eventManager, PlayerManager playerManager, ILogger<ServerHostedService> logger, IOptions<DatabaseSettings> databaseSettings)
+    public ServerHostedService(TcpServer tcpServer, WorldManager worldManager, PacketHandlerManager eventManager, PlayerManager playerManager, ILogger<ServerHostedService> logger, IOptions<DatabaseSettings> databaseSettings)
     {
         m_Logger = logger;
         m_TcpServer = tcpServer;

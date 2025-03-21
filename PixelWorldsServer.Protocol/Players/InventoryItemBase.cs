@@ -12,6 +12,9 @@ public abstract class InventoryItemBase
     [BsonElement("blockType")]
     public BlockType BlockType { get; set; }
 
+    [BsonElement("Amount")]
+    public int amount { get; set; }
+
     public BsonDocument Serialize()
     {
         var document = this.ToBsonDocument();

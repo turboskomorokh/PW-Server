@@ -4,11 +4,9 @@ namespace PixelWorldsServer.Protocol.Worlds;
 
 public class LabElectricWireRedData : WorldItemBase
 {
-    public LabElectricWireRedData() : base(0, BlockType.LabElectricWireRed)
-    {
-    }
+    public LabElectricWireRedData()
+        : base(0, BlockType.LabElectricWireRed) { }
 
-    public LabElectricWireRedData(int itemId) : base(itemId, BlockType.LabElectricWireRed)
-    {
-    }
+    public LabElectricWireRedData(int itemId)
+        : base(itemId, BlockType.LabElectricWireRed) { }
 }

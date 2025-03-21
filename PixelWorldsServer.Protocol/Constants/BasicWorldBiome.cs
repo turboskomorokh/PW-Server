@@ -6,5 +6,5 @@ public enum BasicWorldBiome
     Empty,
     Winter,
     Desert,
-    Alien
+    Alien,
 }

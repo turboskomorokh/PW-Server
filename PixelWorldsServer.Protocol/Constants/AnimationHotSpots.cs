@@ -37,5 +37,5 @@ public enum AnimationHotSpots
     Tights,
     Tail,
     Mount,
-    END_OF_THE_ENUM
+    COUNT,
 }

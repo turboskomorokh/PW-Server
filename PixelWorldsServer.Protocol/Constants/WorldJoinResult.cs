@@ -16,5 +16,5 @@ public enum WorldJoinResult : byte
     ServerException,
     CustomJoinFail,
     AlreadyHere,
-    NotAllowed
+    NotAllowed,
 }

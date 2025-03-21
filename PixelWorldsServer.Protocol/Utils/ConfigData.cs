@@ -40,7 +40,8 @@ public static class ConfigData
     public static BlockType DefaultTreeExtraDropBlock { get; private set; }
     public static BlockType DefaultBlockExtraDropBlock { get; private set; }
     public static BlockClass DefaultBlockClass { get; private set; } = BlockClass.GroundSoft;
-    public static InventoryItemType DefaultBlockInventoryItemType { get; private set; } = InventoryItemType.Block;
+    public static InventoryItemType DefaultBlockInventoryItemType { get; private set; } =
+        InventoryItemType.Block;
 
     public static int[] BlockHitPoints { get; private set; } = null!;
     public static int[] BlockComplexity { get; private set; } = null!;
@@ -63,11 +64,12 @@ public static class ConfigData
     public static BlockClass[] BlockClasses { get; private set; } = null!;
     public static InventoryItemType[] BlockInventoryItemType { get; private set; } = null!;
 
-    public static Dictionary<BlockType, List<AnimationHotSpots>> BlockHotSpots { get; set; } = new();
+    public static Dictionary<BlockType, List<AnimationHotSpots>> BlockHotSpots { get; set; } =
+        new();
 
     private static T[] InitArray<T>(T value)
     {
-        var array = new T[(int)BlockType.BLOCK_TYPE_COUNT];
+        var array = new T[(int)BlockType.COUNT];
         for (int i = 0; i < array.Length; ++i)
         {
             array[i] = value;
@@ -80,7 +82,11 @@ public static class ConfigData
         return new string(reader.ReadChars(reader.ReadInt32()));
     }
 
-    private static void ParseSomeCSV(string inputString, SetConfigDataValue?[] dataSetters, ParseItemNumber itemNumberParser)
+    private static void ParseSomeCSV(
+        string inputString,
+        SetConfigDataValue?[] dataSetters,
+        ParseItemNumber itemNumberParser
+    )
     {
         var stringReader = new StringReader(inputString);
         while (true)
@@ -168,8 +174,13 @@ public static class ConfigData
         {
             {
                 var content = File.ReadAllText("Data/wearable-animation-storage.json");
-                BlockHotSpots = JsonConvert.DeserializeObject<Dictionary<BlockType, List<AnimationHotSpots>>>(content)
-                    ?? throw new NullReferenceException("Failed to serialize wearable-animation-storage");
+                BlockHotSpots =
+                    JsonConvert.DeserializeObject<Dictionary<BlockType, List<AnimationHotSpots>>>(
+                        content
+                    )
+                    ?? throw new NullReferenceException(
+                        "Failed to serialize wearable-animation-storage"
+                    );
             }
 
             {
@@ -186,14 +197,14 @@ public static class ConfigData
                     null,
                     SetBlockTypeInventoryItemType,
                     null, //SetBlockSortingLayerType,
-					null, //SetInventoryOrderType
-					null, //SetIsValidForAuctionHouse
-					null, //SetBlockAvailabilityDate
-					null, //SetBlockSortingOrderInLayer,
-					SetBlockClass,
+                    null, //SetInventoryOrderType
+                    null, //SetIsValidForAuctionHouse
+                    null, //SetBlockAvailabilityDate
+                    null, //SetBlockSortingOrderInLayer,
+                    SetBlockClass,
                     null, //SetDoesBlockHaveCollider,
-					null, //SetIsBlockColliderOneWay,
-					SetHitsRequired,
+                    null, //SetIsBlockColliderOneWay,
+                    SetHitsRequired,
                     SetTreeDropSeedPercentage,
                     SetTreeDropBlockRange,
                     SetTreeDropGemRange,
@@ -205,80 +216,80 @@ public static class ConfigData
                     SetBlockExtraDropBlock,
                     SetBlockExtraDropChance,
                     null, //SetBlockCustomGroups,
-					SetRecycleValue,
+                    SetRecycleValue,
                     Seeds.SetFirstCrossBreedingPart,
                     Seeds.AddCrossBreeding,
                     null, //SetShouldBelowSpriteUseAlternativeSprite,
-					null, //SetBlockGroundDamping,
-					null, //SetBlockRunSpeed,
-					null, //SetBlockGravity,
-					null, //SetBlockMaxFallVelocity,
-					null, //SetBlockAirResistance,
-					null, //SetBlockJumpHeight,
-					null, //SetBlockJumpHeight60FPS,
-					null, //SetIsBlockTrampolin,
-					null, //SetIsBlockSpring,
-					null, //SetIsBlockHot,
-					null, //SetIsBlockPinball,
-					null, //SetBlockBounceForce,
-					null, //SetBlockBounceForce60FPS,
-					null, //SetIsBlockSwimming,
-					null, //SetIsBlockTradeable,
-					null, //SetBlockParticleColor,
-					null, //SetTreeHSL,
-					null, //SetSeedHSL,
-					null, //SetIsSeed,
-					null, //SetBlockTreeSpriteIndex,
-					null, //SetBlockSeedSpriteIndex,
-					SetGrowthTimeInSeconds,
+                    null, //SetBlockGroundDamping,
+                    null, //SetBlockRunSpeed,
+                    null, //SetBlockGravity,
+                    null, //SetBlockMaxFallVelocity,
+                    null, //SetBlockAirResistance,
+                    null, //SetBlockJumpHeight,
+                    null, //SetBlockJumpHeight60FPS,
+                    null, //SetIsBlockTrampolin,
+                    null, //SetIsBlockSpring,
+                    null, //SetIsBlockHot,
+                    null, //SetIsBlockPinball,
+                    null, //SetBlockBounceForce,
+                    null, //SetBlockBounceForce60FPS,
+                    null, //SetIsBlockSwimming,
+                    null, //SetIsBlockTradeable,
+                    null, //SetBlockParticleColor,
+                    null, //SetTreeHSL,
+                    null, //SetSeedHSL,
+                    null, //SetIsSeed,
+                    null, //SetBlockTreeSpriteIndex,
+                    null, //SetBlockSeedSpriteIndex,
+                    SetGrowthTimeInSeconds,
                     null, //SetCanBlockBeBehindWater,
-					null, //SetShouldBlockUseSpriteAnimation,
-					null, //SetBlockSpriteAnimationSpeed,
-					null, //SetShouldBlockUseEffectSpriteAnimation,
-					null, //SetBlockEffectSpriteAnimationSpeed,
-					null, //SetShouldBlockUseLight,
-					null, //SetBlockLightSpriteAnimationType,
-					null, //SetBlockHitEffectOffnull, //SetX,
-					null, //SetBlockHitEffectOffnull, //SetY,
-					null, //SetOffnull, //SetAnimationSpeedX,
-					null, //SetOffnull, //SetAnimationSpeedY,
-					null, //SetBlockHandItemType,
-					null, //SetToolUsableForBlock,
-					null, //SetBlockStorageIndex,
-					null, //SetBlockRange,
-					null, //SetCanSitDownToBlock,
-					null, //SetHitBuffer,
-					null, //SetNewBlockAnimationOn,
-					null, //SetShowButtonWhenPlayerIsNearEnough,
-					null, //SetShowButtonWhenPlayerIsNearEnoughDistance,
-					null, //SetBlockFadeInOutEffect,
-					null, //SetBlockEffectSpriteAnimationType,
-					null, //SetShouldBlockUseAnimalAnimation,
-					null, //SetHidePlayerBlock,
-					null, //SetBlockDirection,
-					null, //SetSpriteAnimationLoopCount,
-					null, //SetIsBlockWind,
-					null, //SetHitForce,
-					null, //SetBattleDamage,
-					null, //SetArmor,
-					null, //SetFireElement,
-					null, //SetWaterElement,
-					null, //SetEarthElement,
-					null, //SetAirElement,
-					null, //SetLightElement,
-					null, //SetDarkElement,
-					null, //SetCritChance,
-					null, //SetBlockMaterialClass,
-					SetBlockComplexity,
+                    null, //SetShouldBlockUseSpriteAnimation,
+                    null, //SetBlockSpriteAnimationSpeed,
+                    null, //SetShouldBlockUseEffectSpriteAnimation,
+                    null, //SetBlockEffectSpriteAnimationSpeed,
+                    null, //SetShouldBlockUseLight,
+                    null, //SetBlockLightSpriteAnimationType,
+                    null, //SetBlockHitEffectOffnull, //SetX,
+                    null, //SetBlockHitEffectOffnull, //SetY,
+                    null, //SetOffnull, //SetAnimationSpeedX,
+                    null, //SetOffnull, //SetAnimationSpeedY,
+                    null, //SetBlockHandItemType,
+                    null, //SetToolUsableForBlock,
+                    null, //SetBlockStorageIndex,
+                    null, //SetBlockRange,
+                    null, //SetCanSitDownToBlock,
+                    null, //SetHitBuffer,
+                    null, //SetNewBlockAnimationOn,
+                    null, //SetShowButtonWhenPlayerIsNearEnough,
+                    null, //SetShowButtonWhenPlayerIsNearEnoughDistance,
+                    null, //SetBlockFadeInOutEffect,
+                    null, //SetBlockEffectSpriteAnimationType,
+                    null, //SetShouldBlockUseAnimalAnimation,
+                    null, //SetHidePlayerBlock,
+                    null, //SetBlockDirection,
+                    null, //SetSpriteAnimationLoopCount,
+                    null, //SetIsBlockWind,
+                    null, //SetHitForce,
+                    null, //SetBattleDamage,
+                    null, //SetArmor,
+                    null, //SetFireElement,
+                    null, //SetWaterElement,
+                    null, //SetEarthElement,
+                    null, //SetAirElement,
+                    null, //SetLightElement,
+                    null, //SetDarkElement,
+                    null, //SetCritChance,
+                    null, //SetBlockMaterialClass,
+                    SetBlockComplexity,
                     null, //SetSpriteContainsAlpha,
-					null, //SetPlayerJumpModeForBlock,
-					null, //SetIsBlockElastic,
-					null, //SetShouldGiveBlockBackIntoInventory,
-					null, //SetBlockSkinColorIndex,
-					null, //SetShardRarity,
-					null, //SetShouldCausePoisoned,
-					null, //SetBlockMaxCountInWorld
-				};
+                    null, //SetPlayerJumpModeForBlock,
+                    null, //SetIsBlockElastic,
+                    null, //SetShouldGiveBlockBackIntoInventory,
+                    null, //SetBlockSkinColorIndex,
+                    null, //SetShardRarity,
+                    null, //SetShouldCausePoisoned,
+                    null, //SetBlockMaxCountInWorld
+                };
 
                 ParseSomeCSV(content, dataSetters, ParseWorldBlockItemNumber);
             }

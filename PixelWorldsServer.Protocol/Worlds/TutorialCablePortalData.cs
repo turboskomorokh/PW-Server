@@ -21,12 +21,9 @@ public class TutorialCablePortalData : WorldItemBase
     [BsonElement("isLocked")]
     public bool IsLocked { get; set; }
 
+    public TutorialCablePortalData()
+        : base(0, BlockType.TutorialCablePortal) { }
 
-    public TutorialCablePortalData() : base(0, BlockType.TutorialCablePortal)
-    {
-    }
-
-    public TutorialCablePortalData(int itemId) : base(itemId, BlockType.TutorialCablePortal)
-    {
-    }
+    public TutorialCablePortalData(int itemId)
+        : base(itemId, BlockType.TutorialCablePortal) { }
 }

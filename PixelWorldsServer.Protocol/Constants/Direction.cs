@@ -13,5 +13,5 @@ public enum Direction
     UpLeft,
     LeftMinor,
     UpUpLeft,
-    UpUpRight
+    UpUpRight,
 }

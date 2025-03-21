@@ -3,5 +3,5 @@
 public enum PlayerCostumeType
 {
     None,
-    Werewolf
+    Werewolf,
 }

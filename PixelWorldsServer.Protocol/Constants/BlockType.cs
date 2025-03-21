@@ -4911,5 +4911,5 @@ public enum BlockType
     WeaponCrossbowStake,
     WingsKitsuneTail,
     WingsSinisterMoth,
-    BLOCK_TYPE_COUNT
+    COUNT,
 }

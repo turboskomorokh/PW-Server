@@ -24,9 +24,7 @@ public abstract class WorldItemBase
     [BsonElement("damageNow")]
     public bool DoDamageNow { get; set; }
 
-    public WorldItemBase()
-    {
-    }
+    public WorldItemBase() { }
 
     public WorldItemBase(int itemId, BlockType blockType)
     {

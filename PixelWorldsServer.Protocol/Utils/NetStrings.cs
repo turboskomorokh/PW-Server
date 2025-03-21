@@ -144,7 +144,8 @@ public static class NetStrings
     public const string NEXT_NORMAL_DAILY_BONUS_CLAIM_FIELD_KEY = "nextNormalDailyBonusClaimKey";
     public const string NEXT_VIP_DAILY_BONUS_CLAIM_FIELD_KEY = "nextVIPDailyBonusClaimKey";
     public const string NEXT_DAILY_ADS_REFRESH_TIME_FIELD_KEY = "nextDailyAdsRefreshTimeKey";
-    public const string NEXT_DAILY_PVP_REWARDS_REFRESH_TIME_FIELD_KEY = "nextDailyPvpRewardsRefreshTimeKey";
+    public const string NEXT_DAILY_PVP_REWARDS_REFRESH_TIME_FIELD_KEY =
+        "nextDailyPvpRewardsRefreshTimeKey";
     public const string LAST_FREE_PRIZE_CLAIM_TIME_FIELD_KEY = "FPCKey";
     public const string NEXT_WELCOME_GIFT_CLAIM_TIME_FIELD_KEY = "WGtKey";
     public const string WELCOME_GIFT_INDEX_FIELD_KEY = "WGiKey";
@@ -167,30 +168,43 @@ public static class NetStrings
     public const string DAILY_QUEST_NEXT_AVAILABLE_LIST_FIELD_KEY = "dailyQuestNextAvailListKey";
     public const string PREVIOUS_THREE_DAILY_QUEST_IDS_FIELD_KEY = "previousThreeDailyQuestIdsKey";
     public const string TUTORIAL_1_CURRENT_STEP_FIELD_KEY = "Tutorial1currentStep";
-    public const string TUTORIAL_1_TRACK_QUEST_STEP_PROGRESS_FIELD_KEY = "Tutorial1trackQuestStepProgress";
+    public const string TUTORIAL_1_TRACK_QUEST_STEP_PROGRESS_FIELD_KEY =
+        "Tutorial1trackQuestStepProgress";
     public const string TUTORIAL_2_CURRENT_STEP_FIELD_KEY = "Tutorial2currentStep";
-    public const string TUTORIAL_2_TRACK_QUEST_STEP_PROGRESS_FIELD_KEY = "Tutorial2trackQuestStepProgress";
+    public const string TUTORIAL_2_TRACK_QUEST_STEP_PROGRESS_FIELD_KEY =
+        "Tutorial2trackQuestStepProgress";
     public const string TUTORIAL_3_CURRENT_STEP_FIELD_KEY = "Tutorial3currentStep";
-    public const string TUTORIAL_3_TRACK_QUEST_STEP_PROGRESS_FIELD_KEY = "Tutorial3trackQuestStepProgress";
+    public const string TUTORIAL_3_TRACK_QUEST_STEP_PROGRESS_FIELD_KEY =
+        "Tutorial3trackQuestStepProgress";
     public const string TUTORIAL_4_CURRENT_STEP_FIELD_KEY = "Tutorial4currentStep";
-    public const string TUTORIAL_4_TRACK_QUEST_STEP_PROGRESS_FIELD_KEY = "Tutorial4trackQuestStepProgress";
+    public const string TUTORIAL_4_TRACK_QUEST_STEP_PROGRESS_FIELD_KEY =
+        "Tutorial4trackQuestStepProgress";
     public const string TUTORIAL_5_CURRENT_STEP_FIELD_KEY = "Tutorial5currentStep";
-    public const string TUTORIAL_5_TRACK_QUEST_STEP_PROGRESS_FIELD_KEY = "Tutorial5trackQuestStepProgress";
+    public const string TUTORIAL_5_TRACK_QUEST_STEP_PROGRESS_FIELD_KEY =
+        "Tutorial5trackQuestStepProgress";
     public const string TUTORIAL_5_INVENTORY_SIZE_KEY = "Tutorial5InventorySizeKey";
     public const string TUTORIAL_6_CURRENT_STEP_FIELD_KEY = "Tutorial6currentStep";
-    public const string TUTORIAL_6_TRACK_QUEST_STEP_PROGRESS_FIELD_KEY = "Tutorial6trackQuestStepProgress";
+    public const string TUTORIAL_6_TRACK_QUEST_STEP_PROGRESS_FIELD_KEY =
+        "Tutorial6trackQuestStepProgress";
     public const string TUTORIAL_7_CURRENT_STEP_FIELD_KEY = "Tutorial7currentStep";
-    public const string TUTORIAL_7_TRACK_QUEST_STEP_PROGRESS_FIELD_KEY = "Tutorial7trackQuestStepProgress";
+    public const string TUTORIAL_7_TRACK_QUEST_STEP_PROGRESS_FIELD_KEY =
+        "Tutorial7trackQuestStepProgress";
     public const string TUTORIAL_8_CURRENT_STEP_FIELD_KEY = "Tutorial8currentStep";
-    public const string TUTORIAL_8_TRACK_QUEST_STEP_PROGRESS_FIELD_KEY = "Tutorial8trackQuestStepProgress";
-    public const string TUTORIAL_8_QUEST_VISITED_WORLDS_LIST_FIELD_KEY = "Tutorial8questVisitedWorldsListKey";
+    public const string TUTORIAL_8_TRACK_QUEST_STEP_PROGRESS_FIELD_KEY =
+        "Tutorial8trackQuestStepProgress";
+    public const string TUTORIAL_8_QUEST_VISITED_WORLDS_LIST_FIELD_KEY =
+        "Tutorial8questVisitedWorldsListKey";
     public const string TUTORIAL_9_CURRENT_STEP_FIELD_KEY = "Tutorial9currentStep";
-    public const string TUTORIAL_9_TRACK_QUEST_STEP_PROGRESS_FIELD_KEY = "Tutorial9trackQuestStepProgress";
-    public const string TUTORIAL_9_QUEST_VISITED_WORLDS_LIST_FIELD_KEY = "Tutorial9questVisitedWorldsListKey";
+    public const string TUTORIAL_9_TRACK_QUEST_STEP_PROGRESS_FIELD_KEY =
+        "Tutorial9trackQuestStepProgress";
+    public const string TUTORIAL_9_QUEST_VISITED_WORLDS_LIST_FIELD_KEY =
+        "Tutorial9questVisitedWorldsListKey";
     public const string TUTORIAL_10_CURRENT_STEP_FIELD_KEY = "Tutorial10currentStep";
-    public const string TUTORIAL_10_TRACK_QUEST_STEP_PROGRESS_FIELD_KEY = "Tutorial10trackQuestStepProgress";
+    public const string TUTORIAL_10_TRACK_QUEST_STEP_PROGRESS_FIELD_KEY =
+        "Tutorial10trackQuestStepProgress";
     public const string TUTORIAL_11_CURRENT_STEP_FIELD_KEY = "Tutorial11currentStep";
-    public const string TUTORIAL_11_TRACK_QUEST_STEP_PROGRESS_FIELD_KEY = "Tutorial11trackQuestStepProgress";
+    public const string TUTORIAL_11_TRACK_QUEST_STEP_PROGRESS_FIELD_KEY =
+        "Tutorial11trackQuestStepProgress";
     public const string TUTORIAL_ID_LIST_FIELD_KEY = "tutorialIDListKey";
     public const string TUTORIAL_QUEST_COMPLETE_STATE_FIELD_KEY = "tutorialQuestCompleteState";
     public const string LIMITED_OFFERS_FIELD_KEY = "limitedOffersKey";
@@ -221,5 +235,12 @@ public static class NetStrings
 
     // Guessed
     public const string PLAYED_PLAYER_AUDIO = "PPA";
+
     // public const string X = "SFA";
+    // Sometimes its triggered while player is moving
+    // less than mP
+    public const string MY2_POSITION_KEY = "mp";
+    public const string PLAYER_GRID_LOCATION_KEY = "pM";
+    public const string PLAYER_REMOVE_ITEM_KEY = "RIi";
+    public const string PLAYER_REMOVE_DELETE_ITEM_KEY = "dI";
 }

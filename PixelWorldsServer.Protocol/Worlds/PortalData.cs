@@ -24,11 +24,9 @@ public class PortalData : WorldItemBase
     [BsonElement("password")]
     public string Password { get; set; } = string.Empty;
 
-    public PortalData() : base(0, BlockType.Portal)
-    {
-    }
+    public PortalData()
+        : base(0, BlockType.Portal) { }
 
-    public PortalData(int itemId) : base(itemId, BlockType.Portal)
-    {
-    }
+    public PortalData(int itemId)
+        : base(itemId, BlockType.Portal) { }
 }

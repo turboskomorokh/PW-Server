@@ -12,5 +12,5 @@ public enum InstructionEventsCompleted
     WonFirstFishingMinigame,
     SelectedFirstLock,
     ClaimedFirstWelcomeGift,
-    InstructionEventVariables_Count
+    COUNT,
 }

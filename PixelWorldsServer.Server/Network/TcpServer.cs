@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using System.Net;
+using System.Net.Sockets;
+using Microsoft.Extensions.Logging;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
 using PixelWorldsServer.DataAccess;
@@ -7,8 +9,6 @@ using PixelWorldsServer.Protocol.Packet;
 using PixelWorldsServer.Protocol.Utils;
 using PixelWorldsServer.Server.Event;
 using PixelWorldsServer.Server.Players;
-using System.Net;
-using System.Net.Sockets;
 
 namespace PixelWorldsServer.Server.Network;
 
@@ -17,10 +17,15 @@ public class TcpServer
     private readonly ILogger m_Logger;
     private readonly Database m_Database;
     private readonly TcpListener m_TcpListener;
-    private readonly EventManager m_EventManager;
+    private readonly PacketHandlerManager m_EventManager;
     private readonly PlayerManager m_PlayerManager;
 
-    public TcpServer(ILogger<TcpServer> logger, EventManager eventManager, Database database, PlayerManager playerManager)
+    public TcpServer(
+        ILogger<TcpServer> logger,
+        PacketHandlerManager eventManager,
+        Database database,
+        PlayerManager playerManager
+    )
     {
         m_Logger = logger;
         m_Database = database;
@@ -30,7 +35,11 @@ public class TcpServer
         m_PlayerManager = playerManager;
     }
 
-    public async Task HandleConnectionAsync(TcpClient client, Player player, CancellationToken token)
+    public async Task HandleConnectionAsync(
+        TcpClient client,
+        Player player,
+        CancellationToken token
+    )
     {
         var stream = client.GetStream();
         var autoResetEvent = new AutoResetEvent(false);
@@ -83,12 +92,13 @@ public class TcpServer
 
                 var document = BsonSerializer.Deserialize<BsonDocument>(packetData);
                 var messageCount = document["mc"].AsInt32;
-                if (messageCount == 1 && document[NetStrings.FIRST_MESSAGE_KEY][NetStrings.ID_KEY].AsString == NetStrings.PING_KEY)
+                if (
+                    messageCount == 1
+                    && document[NetStrings.FIRST_MESSAGE_KEY][NetStrings.ID_KEY].AsString
+                        == NetStrings.PING_KEY
+                )
                 {
-                    player.SendPacket(new PacketBase()
-                    {
-                        ID = NetStrings.PING_KEY
-                    });
+                    player.SendPacket(new PacketBase() { ID = NetStrings.PING_KEY });
                 }
                 else
                 {
@@ -104,7 +114,10 @@ public class TcpServer
                         // the client empty message so that the client doesn't die
                         if (!autoResetEvent.WaitOne(TimeSpan.FromMilliseconds(100)))
                         {
-                            m_Logger.LogWarning("Event takes more than 100 milliseconds: {}", document);
+                            m_Logger.LogWarning(
+                                "Event takes more than 100 milliseconds: {}",
+                                document
+                            );
                         }
                     }
                 }
@@ -127,7 +140,11 @@ public class TcpServer
         }
     }
 
-    private static async Task SendRespondAsync(Player player, NetworkStream stream, CancellationToken token)
+    private static async Task SendRespondAsync(
+        Player player,
+        NetworkStream stream,
+        CancellationToken token
+    )
     {
         var responseDocument = player.ConsumePackets();
         var responseBytes = responseDocument.ToBson();
@@ -155,7 +172,9 @@ public class TcpServer
         {
             try
             {
-                var client = await m_TcpListener.AcceptTcpClientAsync(cancellationToken).ConfigureAwait(false);
+                var client = await m_TcpListener
+                    .AcceptTcpClientAsync(cancellationToken)
+                    .ConfigureAwait(false);
                 var endPoint = client.Client.LocalEndPoint;
                 if (endPoint is null)
                 {
@@ -172,29 +191,39 @@ public class TcpServer
                 m_Logger.LogInformation("Client {} connected", endPoint);
 
                 var player = m_PlayerManager.AddOrReplacePlayer(iPEndPoint);
-                var _ = HandleConnectionAsync(client, player, cancellationToken).ContinueWith(async x =>
-                {
-                    if (!m_PlayerManager.RemovePlayer(iPEndPoint))
-                    {
-                        m_Logger.LogWarning("Failed to remove player with address: {}", iPEndPoint);
-                    }
+                var _ = HandleConnectionAsync(client, player, cancellationToken)
+                    .ContinueWith(
+                        async x =>
+                        {
+                            if (!m_PlayerManager.RemovePlayer(iPEndPoint))
+                            {
+                                m_Logger.LogWarning(
+                                    "Failed to remove player with address: {}",
+                                    iPEndPoint
+                                );
+                            }
 
-                    m_Logger.LogInformation("Client {} disconnected", endPoint);
+                            m_Logger.LogInformation("Client {} disconnected", endPoint);
 
-                    if (player.World is not null && !player.World.RemovePlayer(player))
-                    {
-                        m_Logger.LogWarning("Failed to remove player with address: {} from world", iPEndPoint);
-                    }
+                            if (player.World is not null && !player.World.RemovePlayer(player))
+                            {
+                                m_Logger.LogWarning(
+                                    "Failed to remove player with address: {} from world",
+                                    iPEndPoint
+                                );
+                            }
 
-                    await m_Database.SavePlayerAsync(PlayerModel.CreateCopy(player)).ConfigureAwait(false);
+                            await m_Database
+                                .SavePlayerAsync(PlayerModel.CreateCopy(player))
+                                .ConfigureAwait(false);
 
-                    client.Close();
-                    client.Dispose();
-                }, cancellationToken);
+                            client.Close();
+                            client.Dispose();
+                        },
+                        cancellationToken
+                    );
             }
-            catch (Exception) when (cancellationToken.IsCancellationRequested)
-            {
-            }
+            catch (Exception) when (cancellationToken.IsCancellationRequested) { }
             catch (Exception ex)
             {
                 m_Logger.LogError("Server crashed, exception: {}", ex);

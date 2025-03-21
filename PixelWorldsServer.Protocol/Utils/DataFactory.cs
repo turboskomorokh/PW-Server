@@ -27,7 +27,7 @@ public static class DataFactory
             BlockType.ScifiComputer => typeof(ScifiComputerData),
             BlockType.LabElectricWireRed => typeof(LabElectricWireRedData),
 
-            _ => throw new InvalidDataException($"Unrecognized data {Enum.GetName(bt)}")
+            _ => throw new InvalidDataException($"Unrecognized data {Enum.GetName(bt)}"),
         };
     }
 
@@ -58,7 +58,7 @@ public static class DataFactory
             BlockType.ScifiComputer => new ScifiComputerData(itemId),
             BlockType.LabElectricWireRed => new LabElectricWireRedData(itemId),
 
-            _ => throw new InvalidDataException($"Unrecognized data {Enum.GetName(bt)}")
+            _ => throw new InvalidDataException($"Unrecognized data {Enum.GetName(bt)}"),
         };
     }
 }

@@ -1,7 +1,7 @@
-﻿using PixelWorldsServer.DataAccess;
-using PixelWorldsServer.DataAccess.Models;
-using System.Collections.Concurrent;
+﻿using System.Collections.Concurrent;
 using System.Net;
+using PixelWorldsServer.DataAccess;
+using PixelWorldsServer.DataAccess.Models;
 
 namespace PixelWorldsServer.Server.Players;
 
@@ -18,11 +18,15 @@ public class PlayerManager
     public Player AddOrReplacePlayer(IPEndPoint iPEndPoint)
     {
         var player = new Player(iPEndPoint.Address);
-        return m_Players.AddOrUpdate(iPEndPoint, player, (x, y) =>
-        {
-            y.Disconnect();
-            return player;
-        });
+        return m_Players.AddOrUpdate(
+            iPEndPoint,
+            player,
+            (x, y) =>
+            {
+                y.Disconnect();
+                return player;
+            }
+        );
     }
 
     public bool RemovePlayer(IPEndPoint iPEndPoint)
