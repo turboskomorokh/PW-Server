@@ -8,12 +8,11 @@ using PixelWorldsServer.Protocol.Utils;
 namespace PixelWorldsServer.Server.Event;
 
 [PacketHandler(NetStrings.COLLECT_KEY)]
-
 public class OnPlayerItemCollect : IPacketHandler
 {
     public Task Invoke(EventContext context, BsonDocument document)
     {
-      CollectRequest request = BsonSerializer.Deserialize<CollectRequest>(document);
+        CollectRequest request = BsonSerializer.Deserialize<CollectRequest>(document);
 
         var world = context.World;
         if (world is null)
@@ -28,7 +27,13 @@ public class OnPlayerItemCollect : IPacketHandler
             return Task.CompletedTask;
         }
 
-        if (!context.Player.CanFitItem(collectable.BlockType, collectable.InventoryItemType, collectable.Amount))
+        if (
+            !context.Player.CanFitItem(
+                collectable.BlockType,
+                collectable.InventoryItemType,
+                collectable.Amount
+            )
+        )
         {
             return Task.CompletedTask;
         }
@@ -72,21 +77,27 @@ public class OnPlayerItemCollect : IPacketHandler
         }
         else
         {
-            context.Player.AddItem(collectable.BlockType, collectable.InventoryItemType, collectable.Amount);
+            context.Player.AddItem(
+                collectable.BlockType,
+                collectable.InventoryItemType,
+                collectable.Amount
+            );
         }
 
-        context.Player.SendPacket(new CollectResponse()
-        {
-            ID = NetStrings.COLLECT_KEY,
-            IsGem = collectable.IsGem,
-            Amount = collectable.Amount,
-            GemType = collectable.GemType,
-            BlockType = collectable.BlockType,
-            PositionX = collectable.Pos.X,
-            PositionY = collectable.Pos.Y,
-            CollectableId = request.CollectableId,
-            InventoryType = collectable.InventoryItemType,
-        });
+        context.Player.SendPacket(
+            new CollectResponse()
+            {
+                ID = NetStrings.COLLECT_KEY,
+                IsGem = collectable.IsGem,
+                Amount = collectable.Amount,
+                GemType = collectable.GemType,
+                BlockType = collectable.BlockType,
+                PositionX = collectable.Pos.X,
+                PositionY = collectable.Pos.Y,
+                CollectableId = request.CollectableId,
+                InventoryType = collectable.InventoryItemType,
+            }
+        );
 
         var response = new RemoveCollectResponse()
         {

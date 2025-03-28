@@ -15,9 +15,9 @@ public class WorldModel
     public string Id { get; set; } = null!;
     public string Name { get; set; } = string.Empty;
 
-    public int ItemId { get; set; } = 1;// WorldItem last id
+    public int ItemId { get; set; } = 1; // WorldItem last id
     public int MusicIndex { get; set; }
-    public int InventoryId { get; set; } = 1;// Collectables last id
+    public int InventoryId { get; set; } = 1; // Collectables last id
 
     public Vector2i Size { get; set; } = new();
     public Vector2i StartingPoint { get; set; } = new();
@@ -26,7 +26,8 @@ public class WorldModel
     public GravityMode GravityMode { get; set; } = GravityMode.Normal;
     public LightingType LightingType { get; set; } = LightingType.None;
     public WorldLayoutType LayoutType { get; set; } = WorldLayoutType.Basic;
-    public LayerBackgroundType LayerBackgroundType { get; set; } = LayerBackgroundType.ForestBackground;
+    public LayerBackgroundType LayerBackgroundType { get; set; } =
+        LayerBackgroundType.ForestBackground;
 
     public List<LayerBlock> BlockLayer { get; set; } = new();
     public List<SeedData?> PlantedSeeds { get; set; } = new();
@@ -72,7 +73,11 @@ public class WorldModel
 
 public class WorldItemDataSerializer : SerializerBase<List<WorldItemBase?>>
 {
-    public override void Serialize(BsonSerializationContext context, BsonSerializationArgs args, List<WorldItemBase?> value)
+    public override void Serialize(
+        BsonSerializationContext context,
+        BsonSerializationArgs args,
+        List<WorldItemBase?> value
+    )
     {
         context.Writer.WriteStartDocument();
         context.Writer.WriteName("Count");
@@ -99,7 +104,10 @@ public class WorldItemDataSerializer : SerializerBase<List<WorldItemBase?>>
         context.Writer.WriteEndDocument();
     }
 
-    public override List<WorldItemBase?> Deserialize(BsonDeserializationContext context, BsonDeserializationArgs args)
+    public override List<WorldItemBase?> Deserialize(
+        BsonDeserializationContext context,
+        BsonDeserializationArgs args
+    )
     {
         context.Reader.ReadStartDocument();
         var count = context.Reader.ReadInt32();
@@ -116,7 +124,8 @@ public class WorldItemDataSerializer : SerializerBase<List<WorldItemBase?>>
 
                 var blockType = WorldItemBase.GetBlockTypeViaClassName(className);
                 var worldItemType = DataFactory.GetDataTypeForEnum(blockType);
-                var worldItemBase = (WorldItemBase)BsonSerializer.Deserialize(childDocument, worldItemType);
+                var worldItemBase = (WorldItemBase)
+                    BsonSerializer.Deserialize(childDocument, worldItemType);
                 list.Add(worldItemBase);
             }
             else

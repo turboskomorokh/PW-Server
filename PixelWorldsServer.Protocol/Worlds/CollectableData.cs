@@ -18,7 +18,6 @@ public class CollectableData
     public short Amount { get; set; }
     public bool IsGem { get; set; }
     public GemType GemType { get; set; }
-
     public CollectableData(
         int id,
         BlockType newType,

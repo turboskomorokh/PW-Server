@@ -1,46 +1,13 @@
 using MongoDB.Bson;
-using MongoDB.Bson.Serialization;
-using PixelWorldsServer.DataAccess.Models;
 using PixelWorldsServer.Protocol.Constants;
-using PixelWorldsServer.Protocol.Packet.Request;
 using PixelWorldsServer.Protocol.Packet.Response;
 using PixelWorldsServer.Protocol.Utils;
+using PixelWorldsServer.Server.Event;
 
-namespace PixelWorldsServer.Server.Event;
-
-[PacketHandler(NetStrings.GET_PLAYER_DATA_KEY)]
-public class OnGetPlayerData : IPacketHandler
+class ServerUtils
 {
-    public async Task Invoke(EventContext context, BsonDocument document)
+    public static void RefreshClient(EventContext context)
     {
-        GetPlayerDataRequest request = BsonSerializer.Deserialize<GetPlayerDataRequest>(document);
-        if (context.Database == null)
-            throw new Exception("Database is null");
-
-        PlayerModel? playerModel = null;
-        if (request.Token.Length == 24)
-        {
-            playerModel = await context
-                .Database.GetPlayerByIdAsync(request.Token)
-                .ConfigureAwait(false);
-        }
-
-        if (playerModel is null)
-        {
-            playerModel = await context
-                .Database.CreatePlayerAsync(context.Player.IP, context.Player.OS)
-                .ConfigureAwait(false);
-            context.Player.SendPacket(
-                new LoginTokenUpdateResponse()
-                {
-                    ID = NetStrings.LOGIN_TOKEN_UPDATE_KEY,
-                    Token = playerModel.Id,
-                }
-            );
-        }
-
-        context.Player.LoadCopy(playerModel);
-
         var playerData = new PlayerDataResponse()
         {
             Gems = context.Player.Gems,
@@ -72,7 +39,7 @@ public class OnGetPlayerData : IPacketHandler
             ShowOnlineStatus = context.Player.ShowOnlineStatus,
             IsFamiliarMaxLvl = context.Player.IsFamiliarMaxLvl,
             LastVIPClaimTime = context.Player.LastVIPClaimTime.Ticks,
-            ExperienceAmount = context.Player.ExperienceAmount, // what the fuck is the difference with XP
+            ExperienceAmount = context.Player.ExperienceAmount,
             WelcomeGiftIndex = context.Player.WelcomeGiftIndex,
             QuestCurrentPhase = context.Player.QuestCurrentPhase,
             NameChangeCounter = context.Player.NameChangeCounter,
@@ -140,13 +107,13 @@ public class OnGetPlayerData : IPacketHandler
         var response = new GetPlayerDataResponse()
         {
             ID = NetStrings.GET_PLAYER_DATA_KEY,
-            WOTW = "NUTS",
+            WOTW = "MARKII",
             Email = "",
             BanState = 0,
             PlayerId = context.Player.Id.ToUpper(),
             WorldNames = Array.Empty<string>(),
             PlayerData = playerData.ToBson(),
-            NewsVersion = 103,
+            NewsVersion = 62,
             WOTWVersion = 225,
             RealUsername = context.Player.Name,
             EmailVerified = false,

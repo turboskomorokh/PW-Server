@@ -27,7 +27,10 @@ public class WorldManager
         return m_Worlds.Count;
     }
 
-    public async Task<World?> GetWorldAsync(string name, WorldLayoutType worldLayoutType = WorldLayoutType.Basic)
+    public async Task<World?> GetWorldAsync(
+        string name,
+        WorldLayoutType worldLayoutType = WorldLayoutType.Basic
+    )
     {
         if (m_Worlds.TryGetValue(name, out World? world))
         {
@@ -52,7 +55,9 @@ public class WorldManager
     {
         var world = new World();
         world.Init(name, worldLayoutType);
-        world.Id = await m_Database.InsertWorldAsync(WorldModel.CreateCopy(world)).ConfigureAwait(false);
+        world.Id = await m_Database
+            .InsertWorldAsync(WorldModel.CreateCopy(world))
+            .ConfigureAwait(false);
         return world;
     }
 
@@ -111,7 +116,12 @@ public class WorldManager
 
         return null;
     }
-    private static void GenerateLayerFromByteArray(WorldModel worldModel, byte[] data, LayerType layerType)
+
+    private static void GenerateLayerFromByteArray(
+        WorldModel worldModel,
+        byte[] data,
+        LayerType layerType
+    )
     {
         short[] array = new short[data.Length / 2];
         Buffer.BlockCopy(data, 0, array, 0, data.Length);
@@ -153,7 +163,11 @@ public class WorldManager
         }
     }
 
-    private static void GenerateLayerHitsFromByteIntList(WorldModel worldModel, BsonArray array, LayerType layerType)
+    private static void GenerateLayerHitsFromByteIntList(
+        WorldModel worldModel,
+        BsonArray array,
+        LayerType layerType
+    )
     {
         for (int i = 0; i < worldModel.Size.X; ++i)
         {
@@ -192,7 +206,11 @@ public class WorldManager
         }
     }
 
-    private static void GenerateLayerHitBuffersFromByteIntList(WorldModel worldModel, BsonArray array, LayerType layerType)
+    private static void GenerateLayerHitBuffersFromByteIntList(
+        WorldModel worldModel,
+        BsonArray array,
+        LayerType layerType
+    )
     {
         for (int i = 0; i < worldModel.Size.X; ++i)
         {
@@ -266,18 +284,19 @@ public class WorldManager
             Size = new Vector2i()
             {
                 X = document["WorldSizeSettingsType"]["WorldSizeX"].AsInt32,
-                Y = document["WorldSizeSettingsType"]["WorldSizeY"].AsInt32
+                Y = document["WorldSizeSettingsType"]["WorldSizeY"].AsInt32,
             },
             StartingPoint = new Vector2i()
             {
                 X = document["WorldStartPoint"]["x"].AsInt32,
-                Y = document["WorldStartPoint"]["y"].AsInt32
+                Y = document["WorldStartPoint"]["y"].AsInt32,
             },
             LayoutType = (WorldLayoutType)document["WorldLayoutType"]["Count"].AsInt32,
             GravityMode = (GravityMode)document["WorldGravityMode"]["GM"].AsInt32,
             WeatherType = (WeatherType)document["WorldWeatherType"]["Count"].AsInt32,
             LightingType = (LightingType)document["WorldLightingType"]["Count"].AsInt32,
-            LayerBackgroundType = (LayerBackgroundType)document["WorldBackgroundType"]["Count"].AsInt32,
+            LayerBackgroundType = (LayerBackgroundType)
+                document["WorldBackgroundType"]["Count"].AsInt32,
         };
 
         int size = worldModel.Size.X * worldModel.Size.Y;
@@ -303,24 +322,65 @@ public class WorldManager
 
             var blockType = WorldItemBase.GetBlockTypeViaClassName(className);
             var worldItemType = DataFactory.GetDataTypeForEnum(blockType);
-            var worldItemBase = (WorldItemBase)BsonSerializer.Deserialize(childDocument, worldItemType);
+            var worldItemBase = (WorldItemBase)
+                BsonSerializer.Deserialize(childDocument, worldItemType);
             worldModel.ItemDatas[x + y * worldModel.Size.X] = worldItemBase;
         }
 
         GenerateLayerFromByteArray(worldModel, document["BlockLayer"].AsByteArray, LayerType.Block);
-        GenerateLayerFromByteArray(worldModel, document["BackgroundLayer"].AsByteArray, LayerType.Background);
+        GenerateLayerFromByteArray(
+            worldModel,
+            document["BackgroundLayer"].AsByteArray,
+            LayerType.Background
+        );
         GenerateLayerFromByteArray(worldModel, document["WaterLayer"].AsByteArray, LayerType.Water);
-        GenerateLayerFromByteArray(worldModel, document["WiringLayer"].AsByteArray, LayerType.Wiring);
+        GenerateLayerFromByteArray(
+            worldModel,
+            document["WiringLayer"].AsByteArray,
+            LayerType.Wiring
+        );
 
-        GenerateLayerHitsFromByteIntList(worldModel, document["BlockLayerHits"].AsBsonArray, LayerType.Block);
-        GenerateLayerHitsFromByteIntList(worldModel, document["BackgroundLayerHits"].AsBsonArray, LayerType.Background);
-        GenerateLayerHitsFromByteIntList(worldModel, document["WaterLayerHits"].AsBsonArray, LayerType.Water);
-        GenerateLayerHitsFromByteIntList(worldModel, document["WiringLayerHits"].AsBsonArray, LayerType.Wiring);
+        GenerateLayerHitsFromByteIntList(
+            worldModel,
+            document["BlockLayerHits"].AsBsonArray,
+            LayerType.Block
+        );
+        GenerateLayerHitsFromByteIntList(
+            worldModel,
+            document["BackgroundLayerHits"].AsBsonArray,
+            LayerType.Background
+        );
+        GenerateLayerHitsFromByteIntList(
+            worldModel,
+            document["WaterLayerHits"].AsBsonArray,
+            LayerType.Water
+        );
+        GenerateLayerHitsFromByteIntList(
+            worldModel,
+            document["WiringLayerHits"].AsBsonArray,
+            LayerType.Wiring
+        );
 
-        GenerateLayerHitBuffersFromByteIntList(worldModel, document["BlockLayerHitBuffers"].AsBsonArray, LayerType.Block);
-        GenerateLayerHitBuffersFromByteIntList(worldModel, document["BackgroundLayerHitBuffers"].AsBsonArray, LayerType.Background);
-        GenerateLayerHitBuffersFromByteIntList(worldModel, document["WaterLayerHitBuffers"].AsBsonArray, LayerType.Water);
-        GenerateLayerHitBuffersFromByteIntList(worldModel, document["WiringLayerHitBuffers"].AsBsonArray, LayerType.Wiring);
+        GenerateLayerHitBuffersFromByteIntList(
+            worldModel,
+            document["BlockLayerHitBuffers"].AsBsonArray,
+            LayerType.Block
+        );
+        GenerateLayerHitBuffersFromByteIntList(
+            worldModel,
+            document["BackgroundLayerHitBuffers"].AsBsonArray,
+            LayerType.Background
+        );
+        GenerateLayerHitBuffersFromByteIntList(
+            worldModel,
+            document["WaterLayerHitBuffers"].AsBsonArray,
+            LayerType.Water
+        );
+        GenerateLayerHitBuffersFromByteIntList(
+            worldModel,
+            document["WiringLayerHitBuffers"].AsBsonArray,
+            LayerType.Wiring
+        );
 
         world.LoadCopy(worldModel);
         m_Worlds.Add(name, world);

@@ -119,7 +119,7 @@ public class PlayerDataResponse
     public int WelcomeGiftIndex { get; set; }
 
     [BsonElement(NetStrings.PLAYER_ADMIN_STATUS_FIELD_KEY)]
-    public int AdminStatus { get; set; }
+    public int PermissionLevel { get; set; }
 
     [BsonElement(NetStrings.SHOW_LOCATION_FIELD_KEY)]
     public bool ShowLocation { get; set; }

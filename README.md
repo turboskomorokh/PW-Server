@@ -1,6 +1,9 @@
 # Pixel Worlds Server
 The first ever open-sourced Pixel Worlds Server, made in C# 6.0, provides the basic features of the game in well-structured, organized, reliable, and fast code.
 
+# COMPATIBILITY ISSUES
+This server version is incompatible with the [Pixel-Worlds-Server](https://github.com/zKevz/Pixel-Worlds-Server) by zKevz due to applied changes.
+
 ## What does not work (found out so far)
  - Shop
  - Netherworld
